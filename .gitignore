@@ -1,0 +1,7 @@
+node_modules
+.git
+.vscode
+.parcel-cache
+pnpm-lock.yaml
+package-lock.json
+dist
