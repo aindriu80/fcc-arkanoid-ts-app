@@ -18,6 +18,8 @@ import {
   BALL_STARTX,
   BALL_STARTY,
 } from './setup'
+// Helpers
+import { createBricks } from "./helpers";
 
 let gameOver = false;
 let score = 0;
@@ -36,10 +38,45 @@ function gameLoop(
   view: CanvasView,
   bricks: Brick[],
   paddle: Paddle,
-  ball: Ball,
-) { }
+  // ball: Ball,
+) {
+  view.clear();
+  view.drawBricks(bricks)
+  view.drawSprite(paddle)
 
-function startGame(view: CanvasView) { }
+  // Move paddle and check so it won't exit the playfield 
+  if (
+    (paddle.isMovingLeft && paddle.pos.x > 0) ||
+    (paddle.isMovingRight && paddle.pos.x < view.canvas.width - paddle.width)
+  ) {
+    paddle.movePaddle()
+  }
+
+  requestAnimationFrame(() => gameLoop(view, bricks, paddle))
+}
+
+
+function startGame(view: CanvasView) {
+  // Reset displays
+  score = 0;
+  view.drawInfo('')
+  view.drawScore(0)
+  // Create all bricks 
+  const bricks = createBricks()
+  // Create a Paddle 
+  const paddle = new Paddle(
+    PADDLE_SPEED,
+    PADDLE_WIDTH,
+    PADDLE_HEIGHT,
+    {
+      x: PADDLE_STARTX,
+      y: view.canvas.height - PADDLE_HEIGHT - 5
+    },
+    PADDLE_IMAGE
+  )
+
+  gameLoop(view, bricks, paddle)
+}
 
 // Create a new view 
 const view = new CanvasView('#playField')

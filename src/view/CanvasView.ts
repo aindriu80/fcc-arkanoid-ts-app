@@ -12,10 +12,10 @@ export class CanvasView {
 
   constructor(canvasName: string) {
     this.canvas = document.querySelector(canvasName) as HTMLCanvasElement;
-    this.context = this.canvas.getContext(('2d'));
+    this.context = this.canvas.getContext('2d');
     this.scoreDisplay = document.querySelector('#score');
     this.start = document.querySelector('#start');
-    this.info = document.querySelector(('#info'))
+    this.info = document.querySelector('#info');
   }
 
   clear(): void {
@@ -34,7 +34,7 @@ export class CanvasView {
     if (this.info) this.info.innerHTML = text;
   }
 
-  drawSprite(brick: Brick | Paddle | Ball): void {
+  drawSprite(brick: Brick | Paddle): void {
     if (!brick) return;
 
     this.context?.drawImage(
@@ -46,11 +46,9 @@ export class CanvasView {
     )
   }
 
-  drawBricks(brick: Brick[]): void {
+  drawBricks(bricks: Brick[]): void {
     bricks.forEach(brick => this.drawSprite(brick));
-
   }
-
 
 }
 
