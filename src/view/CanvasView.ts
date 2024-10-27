@@ -23,7 +23,7 @@ export class CanvasView {
   }
 
   initStartButton(startFunction: (view: CanvasView) => void): void {
-    this.start?.addEventListener('click', () => startFunction(this))
+    this.start?.addEventListener('click', () => startFunction(this));
   }
 
   drawScore(score: number): void {
@@ -34,7 +34,7 @@ export class CanvasView {
     if (this.info) this.info.innerHTML = text;
   }
 
-  drawSprite(brick: Brick | Paddle): void {
+  drawSprite(brick: Brick | Paddle | Ball): void {
     if (!brick) return;
 
     this.context?.drawImage(
@@ -43,7 +43,7 @@ export class CanvasView {
       brick.pos.y,
       brick.width,
       brick.height
-    )
+    );
   }
 
   drawBricks(bricks: Brick[]): void {
